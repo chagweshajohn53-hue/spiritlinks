@@ -1,0 +1,8 @@
+{
+  "name": "ExpoLink - Spirit Embassy",
+  "description": "A comprehensive app and event management platform for Spirit Embassy, featuring a public interface for members and a secure admin dashboard for management.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
