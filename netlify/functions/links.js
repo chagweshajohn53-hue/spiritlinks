@@ -1,6 +1,9 @@
 const { builder } = require('@netlify/functions');
 const { Pool } = require('pg');
 
+console.log('DATABASE_URL present:', !!process.env.DATABASE_URL);
+console.log('DATABASE_URL value:', process.env.DATABASE_URL ? 'set' : 'not set');
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
@@ -74,10 +77,11 @@ exports.handler = builder(async (event, context) => {
       body: JSON.stringify({ error: 'Method not allowed' })
     };
   } catch (error) {
+    console.error('Error:', error);
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ error: error.message })
+      body: JSON.stringify({ error: error.message, stack: error.stack })
     };
   }
 });
