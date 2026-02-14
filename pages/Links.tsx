@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { mockDb } from '../services/mockDb';
+import { dataService } from '../services/dataService';
 import { LinkItem } from '../types';
 import { ExternalLink, Search } from 'lucide-react';
 
