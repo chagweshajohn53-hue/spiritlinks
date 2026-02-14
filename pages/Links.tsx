@@ -9,7 +9,15 @@ const Links: React.FC = () => {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    setLinks(mockDb.getLinks());
+    const loadLinks = async () => {
+      try {
+        const fetchedLinks = await dataService.getLinks();
+        setLinks(fetchedLinks);
+      } catch (error) {
+        console.error('Failed to load links:', error);
+      }
+    };
+    loadLinks();
   }, []);
 
   const filteredLinks = links.filter(link => 

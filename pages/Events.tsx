@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { mockDb } from '../services/mockDb';
+import { dataService } from '../services/dataService';
 import { ChurchEvent } from '../types';
 import { Calendar as CalendarIcon, Users, MapPin, ChevronRight, LayoutGrid, ChevronLeft, Info, History } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -12,7 +12,15 @@ const Events: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   useEffect(() => {
-    setEvents(mockDb.getEvents());
+    const loadEvents = async () => {
+      try {
+        const fetchedEvents = await dataService.getEvents();
+        setEvents(fetchedEvents);
+      } catch (error) {
+        console.error('Failed to load events:', error);
+      }
+    };
+    loadEvents();
   }, []);
 
   const activeEvents = useMemo(() => 
